@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { test } from "../controllers/tarea.controllers.js";
+import { test, creartareas, leerTareas} from "../controllers/tarea.controllers.js";
 
 const router = Router()
 
 router.route("/test").get(test)
+router.route("/").get(leerTareas).post(creartareas)
 
 export default router;

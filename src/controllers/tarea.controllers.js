@@ -15,10 +15,10 @@ export const creartareas = async (req, res) =>{
     //validar datos del obj
 
     //guardar obj en BD
-        const nuevoProducto = new Producto(req.body)
-        await nuevoProducto.save(); //guarda el obj en la BD
+        const nuevaTarea = new Tarea(req.body)
+        await nuevaTarea.save(); //guarda el obj en la BD
     //enviar respuesta
-    res.status(201).json({mensaje: "La tarea fue crear exitosamente"}) //representa que el prod fue creado
+    res.status(201).json({mensaje: "La tarea fue creada exitosamente"}) //representa que el prod fue creado
     } catch (error) {
         console.error(error);
         res.status(500).json({mensaje: "Error al crear la tarea"})
