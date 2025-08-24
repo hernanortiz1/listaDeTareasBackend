@@ -30,6 +30,21 @@ export const leerTareaPorId = async (req, res) => {
   }
 };
 
+export const borrarTareaPorId = async (req, res) => {
+  try {
+ 
+    const tareaEliminada = await Tarea.findByIdAndDelete(req.params.id);
+    if (!tareaEliminada) {
+      return res.status(404).json({ mensaje: "Tarea no encontrada" });
+    }
+    //responder front
+    res.status(200).json({mensaje: "Tarea eliminada con exito"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al eliminar tarea" });
+  }
+};
+
 export const crearTarea = async (req, res) => {
   try {
     const nuevaTarea = new Tarea(req.body);
