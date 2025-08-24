@@ -30,7 +30,7 @@ export const leerTareaPorId = async (req, res) => {
   }
 };
 
-export const creartareas = async (req, res) => {
+export const crearTarea = async (req, res) => {
   try {
     const nuevaTarea = new Tarea(req.body);
     await nuevaTarea.save();
