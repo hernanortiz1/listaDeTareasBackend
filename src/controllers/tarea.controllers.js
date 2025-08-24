@@ -7,7 +7,7 @@ export const test = (req, res) => {
 
 export const leerTareas = async (req, res) => {
   try {
-    const listaTareas = await Producto.find({});
+    const listaTareas = await Tarea.find({});
 
     res.status(200).json(listaTareas);
   } catch (error) {
