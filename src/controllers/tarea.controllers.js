@@ -7,7 +7,7 @@ export const test = (req, res) => {
 
 export const leerTareas = async (req, res) => {
   try {
-    const listaTareas = await Producto.find({});
+    const listaTareas = await Tarea.find({});
 
     res.status(200).json(listaTareas);
   } catch (error) {
@@ -27,6 +27,21 @@ export const leerTareaPorId = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "Error al obtener el tarea" });
+  }
+};
+
+export const borrarTareaPorId = async (req, res) => {
+  try {
+ 
+    const tareaEliminada = await Tarea.findByIdAndDelete(req.params.id);
+    if (!tareaEliminada) {
+      return res.status(404).json({ mensaje: "Tarea no encontrada" });
+    }
+    //responder front
+    res.status(200).json({mensaje: "Tarea eliminada con exito"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al eliminar tarea" });
   }
 };
 
