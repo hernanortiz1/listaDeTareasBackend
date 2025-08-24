@@ -1,27 +1,43 @@
-import Tarea from "../models/tarea.models.js"
+import Tarea from "../models/tarea.models.js";
 
-export const test = (req, res,)=>{
-    res.status(200)
-    res.send("primera prueba desde el backend")   
-}
+export const test = (req, res) => {
+  res.status(200);
+  res.send("primera prueba desde el backend");
+};
 
-export const leerTareas = (req, res)=>{
-}
+export const leerTareas = async (req, res) => {
+  try {
+    const listaTareas = await Producto.find({});
 
-export const creartareas = async (req, res) =>{
-    try {
-        //recibir obj que tengo que agregagr a BD
-        console.log(req.body)
-    //validar datos del obj
+    res.status(200).json(listaTareas);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error  al leer una tarea" });
+  }
+};
 
-    //guardar obj en BD
-        const nuevaTarea = new Tarea(req.body)
-        await nuevaTarea.save(); //guarda el obj en la BD
-    //enviar respuesta
-    res.status(201).json({mensaje: "La tarea fue creada exitosamente"}) //representa que el prod fue creado
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({mensaje: "Error al crear la tarea"})
+export const leerTareaPorId = async (req, res) => {
+  try {
+    const tareaBuscada = await Tarea.findById(req.params.id);
+    if (!tareaBuscada) {
+      return res.status(404).json({ mensaje: "Tarea no encontrado" });
     }
-    
-}
+    //constestar el front
+    res.status(200).json(tareaBuscada);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al obtener el tarea" });
+  }
+};
+
+export const creartareas = async (req, res) => {
+  try {
+    const nuevaTarea = new Tarea(req.body);
+    await nuevaTarea.save();
+
+    res.status(201).json({ mensaje: "La tarea fue creada exitosamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al crear la tarea" });
+  }
+};
