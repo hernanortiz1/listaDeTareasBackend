@@ -1,9 +1,20 @@
 import { Router } from "express";
-import { test, crearTarea, leerTareas, leerTareaPorId, borrarTareaPorId} from "../controllers/tarea.controllers.js";
+import {
+  test,
+  crearTarea,
+  leerTareas,
+  leerTareaPorId,
+  borrarTareaPorId,
+  editarTareaPorId,
+} from "../controllers/tarea.controllers.js";
 
-const router = Router()
+const router = Router();
 
-router.route("/test").get(test)
-router.route("/").get(leerTareas).post(crearTarea)
-router.route("/:id").get(leerTareaPorId).delete(borrarTareaPorId)
+router.route("/test").get(test);
+router.route("/").get(leerTareas).post(crearTarea);
+router
+  .route("/:id")
+  .get(leerTareaPorId)
+  .delete(borrarTareaPorId)
+  .put(editarTareaPorId);
 export default router;

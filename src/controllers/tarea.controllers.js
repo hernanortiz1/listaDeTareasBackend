@@ -45,6 +45,21 @@ export const borrarTareaPorId = async (req, res) => {
   }
 };
 
+export const editarTareaPorId = async (req, res) => {
+  try {
+
+    const tareaModificada = await Tarea.findByIdAndUpdate(req.params.id, req.body);
+    if (!tareaModificada) {
+      return res.status(404).json({ mensaje: "Tarea no encontrada" });
+    }
+
+    res.status(200).json({mensaje: "Tarea modificada con exito"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al modificar tarea" });
+  }
+};
+
 export const crearTarea = async (req, res) => {
   try {
     const nuevaTarea = new Tarea(req.body);
